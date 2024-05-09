@@ -1,0 +1,279 @@
+body {
+    min-width: 1080px;
+    margin: 0;
+    padding: 0;
+    background-color: #F3F3F3;
+    color: #111111;
+}
+main {
+    display: flex;
+}
+h1, h2, h3, h4, h5, p {
+    margin: 0;
+}
+a {
+    text-decoration-line: none;
+}
+button {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+.inner {
+    margin: 0 24px;
+}
+.display-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.display-flex-top {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+.m-t16 {
+    margin-top: 16px;
+}
+.m-t20 {
+    margin-top: 20px;
+}
+.m-r16 {
+    margin-right: 16px;
+}
+.m-b16 {
+    margin-bottom: 16px;
+}
+.m-b10 {
+    margin-bottom: 10px;
+}
+
+.font12 {
+    font-size: 12px;
+}
+.font14 {
+    font-size: 14px;
+}
+.font20 {
+    font-size: 20px;
+}
+.color-white {
+    color: white;
+}
+
+
+.back-blue {
+    background-color: #00153E;
+}
+.back-white {
+    background-color: #FFFFFF;
+}
+
+/* header start */
+#header {
+    width: 100%;
+    color: #FFFFFF;
+}
+#header .inner {
+    height: 72px;
+}
+#header #adminName {
+    margin-left: 8px;
+    margin-right: 50px;
+}
+#header #logoutBtn {
+    width: 72px;
+    height: 32px;
+    border: 1px solid #797979;
+}
+/* header end */
+
+/* nav start */
+#nav {
+    width: 230px;
+    padding-top: 34px;
+    height: calc(100vh - 106px);
+}
+#nav a {
+    display: block;
+    width: calc(100% - 24px);
+    height: 48px;
+    line-height: 48px;
+    font-weight: 700;
+    color: #FFFFFF;
+    padding-left: 24px;
+}
+#nav a.active {
+    background-color: #F3F3F3;
+    color: #111111;
+}
+/* nav end */
+
+/* container start */
+.container {
+    width: calc(100% - 278px);
+    height: calc(100vh - 82px);
+    overflow-y: auto;
+    margin: 10px 24px 0 24px;
+}
+/* container end */
+
+/* content start */
+.content {
+    padding: 16px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+}
+.content-flex3 {
+    width: calc(((100% - 16px) / 4) * 3);
+}
+.content-flex1 {
+    width: calc(((100% - 16px) / 4));
+}
+#index .content {
+    min-height: calc(100vh - 164px);
+}
+/* content end */
+
+/* imageBox start */
+.imageBox {
+    background-color: #F2F2F2;
+    border: 1px solid #DBDBDB;
+    position: relative;
+}
+.imageBox span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background-color: #FFFFFF;
+    text-align: center;
+    line-height: 22px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 0 0 4px 0;
+    border-right: 1px solid #DBDBDB;
+    border-bottom: 1px solid #DBDBDB;
+}
+.imageBox .plusBtn {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}
+.mainImageBox {
+    height: 420px;
+}
+.subMainImageBox {
+    width: calc((100% - 12px) / 2);
+    height: 235px;
+}
+/* imageBox end */
+
+/* searchBox start */
+/*.searchBox {
+    width: 100%;
+    height: 36px;
+    border: 1px solid #767676;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+.searchBox input {
+    width: calc(100% - 25px);
+    height: 32px;
+    border: none;
+    margin-right: 20px;
+}*/
+.locationBox {
+    width: 100%;
+    height: 36px;
+    border: 1px solid #006DEC;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #006DEC;
+    font-size: 16px;
+}
+.infoBox {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #767676;
+    border-radius: 4px;
+}
+.infoBox div {
+    padding: 0 10px;
+}
+.infoBox p {
+    color: #767676;
+}
+.infoBox span {
+    font-weight: bold;
+}
+
+.sliderBox {
+    padding: 15px 80px;
+    position: relative;
+}
+.sliderBox .swiper-button-prev {
+    transform: translateX(16px);
+}
+.sliderBox .swiper-button-next {
+    transform: translateX(-16px);
+}
+.sliderBox .swiper-button-prev:after, .sliderBox .swiper-button-next:after {
+    display: none;
+}
+.swiper-container {
+    overflow-x: hidden;
+}
+.swiper-container .swiper-slide .infoBox {
+    height: 230px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.swiper-container .swiper-slide .infoBox .title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #111111;
+    margin-bottom: 20px;
+}
+
+.popup {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    display: none;
+}
+.popup.active {
+    display: flex;
+}
+
+.popup .popupContent {
+    width: 80%;
+    margin: 0 auto;
+    padding: 24px;
+}
+.popup .popupContent #detailAreaSelect {
+    width: 220px;
+    height: 40px;
+    border: 1px solid #767676;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.popup .popupContent button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #006DEC;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.popup .popupContent button#detailAreaDeleteBtn {
+    color: #006DEC;
+}
+.popup .popupContent button#detailAreaAddBtn {
+    background-color: #006DEC;
+}

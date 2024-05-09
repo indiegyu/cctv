@@ -1,0 +1,8 @@
+.cctv_image {
+    width: 100%;
+    margin: 10px;
+}
+.content-flex3 .mainImageBox video {
+    object-fit: cover;
+    height: auto;
+}

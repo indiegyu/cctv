@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+  <section id="index" class="container">
+    <p class="m-b10 font12">관제</p>
+
+    <div class="display-flex-top">
+      <article class="content back-white content-flex3 m-r16">
+        <h2 class="font20 m-b10">지역별 인구밀집 히트맵</h2>
+        <div class="imageBox mainImageBox">
+
+        </div>
+      </article>
+      <article class="content back-white content-flex1">
+        <h2 class="font20 m-b10">구역 목록</h2>
+        <!--<div class="searchBox display-flex m-b10">
+          <button>
+            <img src="{% static 'image/searchIcon.png' %}" alt="검색" >
+          </button>
+          <input type="text" id="searchText" class="font14" placeholder="구역 검색">
+        </div>-->
+
+        {% for area in area_list %}
+        <button class="locationBox display-flex m-b16" data-area-id="{{area.area_id}}">
+          {{area.area_name}}
+          <img src="{% static 'image/rightArrowIcon.png' %}" alt="상세페이지 이동" >
+        </button>
+      {% endfor %}
+      </article>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let locationBox = document.querySelectorAll(".locationBox");
+
+      if (locationBox.length > 0) {
+        locationBox.forEach((element) => {
+          element.addEventListener("click", () => {
+            let areaId = element.getAttribute("data-area-id");
+            window.location.href = `area/${areaId}`;
+          });
+        });
+      }
+    });
+
+    document.getElementById("page1").classList.add("active");
+    document.getElementById("page2").classList.remove("active");
+
+  </script>
+{% endblock %}

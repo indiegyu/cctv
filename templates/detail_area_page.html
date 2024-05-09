@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/detail_area_page_style.css' %}">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
+  <script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
+
+{% endblock %}
+
+{% block content %}
+  <section  id="areaPage" class="container">
+    <p class="m-b10 font12">관제 > 구역 상세 > CCTV 상세</p>
+
+    <div class="display-flex-top">
+      <article class="content back-white content-flex3 m-r16">
+        <h2 class="font20 m-b10">{{area.area_name}}{{cctv.cctv_channel}} CCTV</h2>
+        <div class="imageBox mainImageBox">
+            <div data-channel="{{ cctv.cctv_channel }}" class="imageBox subMainImageBox">
+                <video id="cctv_{{ cctv.cctv_channel }}" class="video-js vjs-default-skin" controls>
+                    <source src="{{ cctv.http_url }}" type="application/x-mpegURL">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <span>{{cctv.cctv_channel}}</span>
+            <button class="plusBtn" onclick="popupEvent()">
+                <img src="{% static 'image/plusBtn.png' %}" alt="추가" >
+            </button>
+        </div>
+    </article>
+      <article class="content back-white content-flex1">
+        <h2 class="font20 m-b10">{{area.area_name}}{{cctv.cctv_channel}} CCTV 정보</h2>
+        <div class="infoBox display-flex">
+          <div>
+            <p class="font14">위험도</p>
+            <span>1</span>
+          </div>
+        </div>
+        <div class="infoBox display-flex m-t20">
+          <div>
+            <p class="font14">인구 밀도</p>
+            <span>55,555m^2</span>
+          </div>
+        </div>
+        <div class="infoBox display-flex m-t20">
+          <div>
+            <p class="font14">측정 넓이</p>
+            <span>55,555m^2</span>
+          </div>
+        </div>
+        <div class="infoBox display-flex m-t20">
+          <div>
+            <p class="font14">탐지 인구 수</p>
+            <span>50,000명</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="sliderBox back-white">
+      <div class="swiper-button-prev">
+        <img src="{% static 'image/sliderLeftBtn.png' %}" alt="이전" >
+      </div>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="infoBox">
+              <p class="title">상세구역 1번</p>
+              <p class="font14">위험도</p>
+              <span class="m-b10">1</span>
+              <p class="font14">인구 밀도</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">측정 넓이</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">탐지 인구 수</p>
+              <span>50,000명</span>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="infoBox">
+              <p class="title">상세구역 2번</p>
+              <p class="font14">위험도</p>
+              <span class="m-b10">1</span>
+              <p class="font14">인구 밀도</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">측정 넓이</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">탐지 인구 수</p>
+              <span>50,000명</span>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="infoBox">
+              <p class="title">상세구역 3번</p>
+              <p class="font14">위험도</p>
+              <span class="m-b10">1</span>
+              <p class="font14">인구 밀도</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">측정 넓이</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">탐지 인구 수</p>
+              <span>50,000명</span>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="infoBox">
+              <p class="title">상세구역 4번</p>
+              <p class="font14">위험도</p>
+              <span class="m-b10">1</span>
+              <p class="font14">인구 밀도</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">측정 넓이</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">탐지 인구 수</p>
+              <span>50,000명</span>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="infoBox">
+              <p class="title">상세구역 5번</p>
+              <p class="font14">위험도</p>
+              <span class="m-b10">1</span>
+              <p class="font14">인구 밀도</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">측정 넓이</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">탐지 인구 수</p>
+              <span>50,000명</span>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="infoBox">
+              <p class="title">상세구역 6번</p>
+              <p class="font14">위험도</p>
+              <span class="m-b10">1</span>
+              <p class="font14">인구 밀도</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">측정 넓이</p>
+              <span class="m-b10">55,555m^2</span>
+              <p class="font14">탐지 인구 수</p>
+              <span>50,000명</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-button-next">
+        <img src="{% static 'image/sliderRightBtn.png' %}" alt="다음" >
+      </div>
+    </div>
+  </section>
+
+  <section id="areaPopup" class="popup display-flex">
+    <div class="back-white popupContent">
+      <h2 class="font20 m-b10">{{area.area_name}}{{cctv.cctv_channel}} CCTV</h2>
+      <div class="display-flex m-b10">
+        <select id="detailAreaSelect">
+          <option>상세구역1</option>
+          <option>상세구역2</option>
+          <option>상세구역3</option>
+          <option>상세구역4</option>
+        </select>
+        <div>
+          <button id="detailAreaDeleteBtn">구역삭제</button>
+          <button id="detailAreaAddBtn" class="color-white">+ 구역추가</button>
+        </div>
+      </div>
+      <div class="imageBox mainImageBox">
+        <div data-channel="{{ cctv.cctv_channel }}" class="imageBox subMainImageBox">
+            <video id="cctv_{{ cctv.cctv_channel }}" class="video-js vjs-default-skin" controls>
+                <source src="{{ cctv.http_url }}" type="application/x-mpegURL">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <span>{{cctv.cctv_channel}}</span>
+    </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+<!-- 비디오 플레이어 설정 스크립트 -->
+<script>
+  
+  // 페이지 로드가 완료된 후 실행되는 함수
+  document.addEventListener("DOMContentLoaded", function () {
+    // 모든 비디오 요소를 찾아서 Video.js로 초기화
+    const videos = document.querySelectorAll(".video-js");
+    videos.forEach(videoElement => {
+      const player = videojs(videoElement); // Video.js 플레이어 초기화
+      player.ready(function () {
+        // 플레이어가 준비되면 자동으로 재생 시작
+        this.play();
+      });
+    });
+  });
+
+  // 페이지 로드시 비디오 자동 재생
+  window.onload = function () {
+    const videos = document.querySelectorAll(".video-js");
+    videos.forEach(videoElement => {
+      const player = videojs(videoElement); // Video.js 플레이어 초기화
+      player.autoplay('muted');
+    });
+  };
+
+</script>
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const mySwiper = new Swiper('.swiper-container', {
+      slidesPerView: 4,
+      spaceBetween: 30,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      }
+    });
+
+    const popupEvent = () => {
+      document.getElementById("areaPopup").classList.add("active");
+    }
+      // 팝업 바깥쪽을 클릭하면 팝업이 닫히도록 설정
+document.addEventListener("click", function(event) {
+  if (event.target.classList.contains("popup")) {
+    document.getElementById("areaPopup").classList.remove("active");
+  }
+});
+  </script>
+
+  
+{% endblock %}
