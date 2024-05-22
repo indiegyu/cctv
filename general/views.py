@@ -6,9 +6,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import requests
 
+def testing_view(request):
+    pk = 5
+    pk2 = 1
+    area = get_object_or_404(Location, area_id=pk)
+    cctv = get_object_or_404(CCTV, cctv_channel=pk2)
+    return render(request, 'test.html', {'cctv': cctv, 'area': area})
+
 def index_view(request):
     area_all = Location.objects.all()
     return render(request, 'index.html', {"area_list": area_all})
+
+
 
 
 def area(request):
