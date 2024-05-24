@@ -10,7 +10,8 @@ def testing_view(request):
     pk = 5
     pk2 = 1
     area = get_object_or_404(Location, area_id=pk)
-    cctv = get_object_or_404(CCTV, cctv_channel=pk2)
+    
+    cctv = get_object_or_404(CCTV, area=area, cctv_channel=pk2)
     return render(request, 'test.html', {'cctv': cctv, 'area': area})
 
 def index_view(request):
@@ -40,6 +41,8 @@ def statistics_view(request):
     return render(request, "statistics.html")
 
 
+import base64
+import os
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import CCTV
@@ -50,6 +53,9 @@ from django.db.models import Sum
 from .models import Location, CCTV
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
+from django.conf import settings
+
 
 class ExternalAPIView(APIView):
     def get(self, request):
@@ -95,3 +101,60 @@ class UpdateAreaDetectedPeople(APIView):
 
         # detected_people 값을 JSON 형태로 반환
         return Response({'detected_people': detected_people})
+
+import base64
+import os
+import requests
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.conf import settings
+
+class FetchAndSaveImageView(APIView):
+    def get(self, request):
+        try:
+            # 외부 API URL
+            external_api_url = "http://61.75.117.152:4567/combined"
+
+            # 외부 API에 GET 요청 보내기
+            response = requests.get(external_api_url)
+            if response.status_code != 200:
+                return Response({'error': 'Failed to fetch image from external API'}, status=status.HTTP_400_BAD_REQUEST)
+
+            # 응답에서 이미지 데이터 추출 (Base64 인코딩된 이미지 데이터와 객체 수를 포함)
+            data = response.json()
+            image_data = data.get('image')
+            object_count = data.get('json', {}).get('frame', {}).get('object_count', 0)
+            if not image_data:
+                return Response({'error': 'No image data found in the response'}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Base64 인코딩된 문자열이 "data:image/png;base64," 형식을 포함할 수 있음
+            if "," in image_data:
+                image_data = image_data.split(',')[1]
+
+            # Base64 디코딩
+            image_data = base64.b64decode(image_data)
+
+            # 저장 경로 설정
+            image_path = os.path.join(settings.BASE_DIR, 'static', 'image', 'testcctvimg.png')
+
+            # 디렉토리가 존재하지 않는 경우 생성
+            os.makedirs(os.path.dirname(image_path), exist_ok=True)
+
+            # 파일로 저장
+            with open(image_path, 'wb') as f:
+                f.write(image_data)
+
+            try:
+                cctv = CCTV.objects.get(cctv_id=3)  # id가 3인 CCTV 객체 가져오기
+                cctv.detected_people = object_count
+                cctv.save()
+            except CCTV.DoesNotExist:
+                return Response({'error': 'CCTV with id 3 does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({'message': 'Image fetched and saved successfully', 'object_count': object_count}, status=status.HTTP_200_OK)
+        except IndexError:
+            return Response({'error': 'Invalid image data format'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+

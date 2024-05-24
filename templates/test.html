@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block header %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/area_page_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/test_page_style.css' %}">
+
 <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
 <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
 {% endblock %}
@@ -14,82 +15,68 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
 
 <section id="areaPage" class="container">
-  <p class="m-b10 font12">관제 > 구역 상세</p>
+    <p class="m-b10 font12">관제 > 구역 상세</p>
 
-  <div class="display-flex-top">
-    <article class="content back-white content-flex3 m-r16">
-      <h2 class="font20 m-b10">{{area.area_name}} 구역 상세</h2>
-      <!-- Django 템플릿 코드 -->
-      <div class="display-flex-top m-b10">
-        {% for cctv in cctvs %}
-        <div data-channel="{{ cctv.cctv_channel }}" class="imageBox subMainImageBox">
-          <video id="cctv_{{ cctv.cctv_channel }}" class="video-js vjs-default-skin" controls>
-            <source src="{{ cctv.http_url }}" type="application/x-mpegURL">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        {% endfor %}
+    <div class="display-flex-top">
+        <article class="content back-white content-flex3 m-r16">
+            <h2 class="font20 m-b10">{{area.area_name}} 구역 상세</h2>
+            <!-- Django 템플릿 코드 -->
+            <div class="display-flex-top m-b10">
+                <div data-channel="{{ cctv.cctv_channel }}" class="imageBox subMainImageBox">
+                    <video id="cctv_{{ cctv.cctv_channel }}" class="video-js vjs-default-skin videobox">
+                        <source src="{{ cctv.http_url }}" type="application/x-mpegURL">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div data-channel="{{ cctv.cctv_channel }}" class="imageBox subMainImageBox">
+                    <img id="cctv_{{ cctv.cctv_channel }}" class="testimg" src="static\image\overlayphoto.jpeg">
+                    </img>
+                </div>
+            </div>
+        </article>
+        <article class="content back-white content-flex1">
+            <h2 class="font20 m-b10">{{area.area_name}} 인파 정보</h2>
+            <div class="infoBox display-flex">
+                <div>
+                    <p class="font14">현재시각</p>
+                    <span id="current-time">15시 00분 33</span>
+                </div>
+            </div>
+            <div class="infoBox display-flex m-t20">
+                <div>
+                    <p class="font14">위험도</p>
+                    <span>1</span>
+                </div>
+            </div>
+            <div class="infoBox display-flex m-t20">
+                <div>
+                    <p class="font14" id="detected-people-count">감지된 사람 수</p>
+                    <span id="areaData"></span>
+                </div>
+            </div>
+            <div class="infoBox display-flex m-t20">
+                <div>
+                    <p class="font14">구역 넓이</p>
+                    <span>55,555m^2</span>
+                </div>
+            </div>
 
-      </div>
-
-    </article>
-    <article class="content back-white content-flex1">
-      <h2 class="font20 m-b10">{{area.area_name}} 인파 정보</h2>
-      <div class="infoBox display-flex">
-        <div>
-          <p class="font14">현재시각</p>
-          <span id="current-time">15시 00분 33</span>
-        </div>
-      </div>
-      <div class="infoBox display-flex m-t20">
-        <div>
-          <p class="font14">위험도</p>
-          <span>1</span>
-        </div>
-      </div>
-      <div class="infoBox display-flex m-t20">
-        <div>
-          <p class="font14" id="detected-people-count">감지된 사람 수</p>
-          <span id="areaData"></span>
-        </div>
-      </div>
-      <div class="infoBox display-flex m-t20">
-        <div>
-          <p class="font14">구역 넓이</p>
-          <span>55,555m^2</span>
-        </div>
-      </div>
-
-      <div class="infoBox display-flex m-t20">
-        <div>
-          <p class="title font14">구역 인구 밀집도(제곱미터 당)</p>
-          <span>55,555명</span>
-        </div>
-      </div>
-    </article>
-  </div>
+            <div class="infoBox display-flex m-t20">
+                <div>
+                    <p class="title font14">구역 인구 밀집도(제곱미터 당)</p>
+                    <span>55,555명</span>
+                </div>
+            </div>
+        </article>
+    </div>
 </section>
 {% endblock %}
 
 {% block script %}
 <!-- JQuery -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    let cctvPreviewImage = document.querySelectorAll(".subMainImageBox");
 
-    if (cctvPreviewImage.length > 0) {
-      cctvPreviewImage.forEach((element) => {
-        element.addEventListener("click", () => {
-          let channel = element.getAttribute("data-channel");
-          let areaId = "{{ area.area_id }}";
-          window.location.href = `${areaId}/${channel}`;
-        });
-      });
-    }
-  });
-</script>
 
-<script>
+<!-- <script>
   $(document).ready(function() {
       // 페이지가 로드되면 바로 데이터 가져오기
       updateCctvData();
@@ -145,63 +132,90 @@
           }
       }); 
   }
-</script>
+</script> -->
 
 <script>
-  // 시간 업데이트
-  // 현재 시간 업데이트 함수
-  function updateTime() {
-    // 현재 시간을 가져옴
-    let now = new Date();
+    // 시간 업데이트
+    // 현재 시간 업데이트 함수
+    function updateTime() {
+        // 현재 시간을 가져옴
+        let now = new Date();
 
-    // 시간, 분, 초를 가져와서 문자열로 변환
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    let seconds = now.getSeconds();
+        // 시간, 분, 초를 가져와서 문자열로 변환
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
 
-    // 10보다 작은 숫자의 경우 앞에 0을 붙여주기
-    hours = hours < 10 ? "0" + hours : hours;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
+        // 10보다 작은 숫자의 경우 앞에 0을 붙여주기
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    // 현재 시각을 시:분:초 형식으로 표시
-    let currentTimeString = hours + "시 " + minutes + "분 " + seconds + "초";
+        // 현재 시각을 시:분:초 형식으로 표시
+        let currentTimeString = hours + "시 " + minutes + "분 " + seconds + "초";
 
-    // 현재 시각을 해당 span 요소에 업데이트
-    document.getElementById("current-time").innerText = currentTimeString;
-  }
+        // 현재 시각을 해당 span 요소에 업데이트
+        document.getElementById("current-time").innerText = currentTimeString;
+    }
 
-  // 페이지 로드 시간과 1초마다 시간 업데이트
-  document.addEventListener("DOMContentLoaded", function () {
-    updateTime();
-    setInterval(updateTime, 1000);
-  });
+    // 페이지 로드 시간과 1초마다 시간 업데이트
+    document.addEventListener("DOMContentLoaded", function () {
+        updateTime();
+        setInterval(updateTime, 1000);
+    });
 </script>
 
 <!-- 비디오 플레이어 설정 스크립트 -->
 <script>
-  // 페이지 로드가 완료된 후 실행되는 함수
-  document.addEventListener("DOMContentLoaded", function () {
-    // 모든 비디오 요소를 찾아서 Video.js로 초기화
-    const videos = document.querySelectorAll(".video-js");
-    videos.forEach(videoElement => {
-      const player = videojs(videoElement); // Video.js 플레이어 초기화
-      player.ready(function () {
-        // 플레이어가 준비되면 자동으로 재생 시작
-        this.play();
-      });
+    // 페이지 로드가 완료된 후 실행되는 함수
+    document.addEventListener("DOMContentLoaded", function () {
+        // 모든 비디오 요소를 찾아서 Video.js로 초기화
+        const videos = document.querySelectorAll(".video-js");
+        videos.forEach(videoElement => {
+            const player = videojs(videoElement); // Video.js 플레이어 초기화
+            player.ready(function () {
+                // 플레이어가 준비되면 자동으로 재생 시작
+                this.play();
+            });
+        });
     });
-  });
 
-  // 페이지 로드시 비디오 자동 재생
-  window.onload = function () {
-    const videos = document.querySelectorAll(".video-js");
-    videos.forEach(videoElement => {
-      const player = videojs(videoElement); // Video.js 플레이어 초기화
-      player.autoplay('muted');
-    });
-  };
+    // 페이지 로드시 비디오 자동 재생
+    window.onload = function () {
+        const videos = document.querySelectorAll(".video-js");
+        videos.forEach(videoElement => {
+            const player = videojs(videoElement); // Video.js 플레이어 초기화
+            player.autoplay('muted');
+        });
+    };
 
 </script>
+
+<script>
+        $(document).ready(function() {
+            function fetchAndUpdateImage() {
+                $.ajax({
+                    url: '/fetch-and-save-image/',
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.message === 'Image fetched and saved successfully') {
+                            // 업데이트된 이미지를 로드하기 위해 캐시 방지용 쿼리 매개변수 추가
+                            var newSrc = 'static/image/testcctvimg.png?' + new Date().getTime();
+                            $('.testimg').attr('src', newSrc);
+                            $('#areaData').text(response.object_count+'명');
+                        } else {
+                            console.error('Error:', response.error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                    }
+                });
+            }
+
+            // 2초마다 fetchAndUpdateImage 함수 호출
+            setInterval(fetchAndUpdateImage, 2000);
+        });
+    </script>
 
 {% endblock %}
