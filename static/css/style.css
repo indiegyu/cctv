@@ -166,7 +166,7 @@ button {
 }
 .subMainImageBox {
     width: calc((100% - 12px) / 2);
-    height: 235px;
+    height: 500px;
 }
 /* imageBox end */
 

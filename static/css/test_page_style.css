@@ -1,0 +1,17 @@
+.subMainImageBox{
+    height: fit-content;
+}
+
+.subMainImageBox video{
+    position: relative;
+    height: fit-content;
+}
+
+#cctv_1{
+    max-width: 100%;
+    height: fit-content; 
+}
+
+#cctv_1_html5_api{
+    position: relative;
+}
